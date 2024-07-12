@@ -1,0 +1,66 @@
+<div class="container">
+    <h1>Calculadora de Salarios</h1>
+    <p>Ingresa los datos del empleado y calcula el salario semanal.</p>
+  
+    <div class="form-container">
+      <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" type="text">
+          <mat-error *ngIf="controlHasError('name', 'required')">El nombre es requerido.</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Salario por hora</mat-label>
+          <input matInput formControlName="hourlyWage" type="number">
+          <mat-error *ngIf="controlHasError('hourlyWage', 'required')">El salario por hora es requerido.</mat-error>
+          <mat-error *ngIf="controlHasError('hourlyWage', 'min')">El salario debe ser mayor que 0.</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Horas trabajadas</mat-label>
+          <input matInput formControlName="hoursWorked" type="number">
+          <mat-error *ngIf="controlHasError('hoursWorked', 'required')">Las horas trabajadas son requeridas.</mat-error>
+          <mat-error *ngIf="controlHasError('hoursWorked', 'min')">Las horas deben ser 0 o más.</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill">
+          <mat-label>Horas extras</mat-label>
+          <input matInput formControlName="overtimeHours" type="number">
+          <mat-error *ngIf="controlHasError('overtimeHours', 'required')">Las horas extras son requeridas.</mat-error>
+          <mat-error *ngIf="controlHasError('overtimeHours', 'min')">Las horas deben ser 0 o más.</mat-error>
+        </mat-form-field>
+       
+        <button mat-raised-button color="primary" type="submit" [disabled]="employeeForm.invalid">Calcular Salario</button>
+      </form>
+    </div>
+  
+    <div class="result" *ngIf="result">
+      <h3>Resultados</h3>
+      <mat-card>
+        <mat-card-title>Salario Regular</mat-card-title>
+        <mat-card-content>
+          <p>{{ result.regularSalary }}</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>Salario por Horas Extras</mat-card-title>
+        <mat-card-content>
+          <p>{{ result.overtimeSalary }}</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>Deducciones</mat-card-title>
+        <mat-card-content>
+          <p>{{ result.deductions }}</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>Salario Neto</mat-card-title>
+        <mat-card-content>
+          <p>{{ result.netSalary }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
